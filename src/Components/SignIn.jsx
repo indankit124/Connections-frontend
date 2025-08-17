@@ -10,7 +10,7 @@ import signin from '../../resourses/signin.png';
        
 
        
-      <div className='w-1/2  bg-gradient-to-tl from-gray-400 to-white '>
+      <div className='w-1/2  bg-gradient-to-tl from-blue-400 to-white '>
         <div>
         <h1 className="text-5xl pt-9 pl-5 font-bold text-black">CONNECTion#</h1>
         
