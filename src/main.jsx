@@ -1,15 +1,30 @@
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import Home from "./Components/Home";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import SignUp from "./Components/SignUp";
+import SignIn from "./Components/SignIn";
 
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App'
 
-const AppLayOut=()=>{ 
-return(
-<div>
-    <App />
-  </div>
-  )
-}
+const appRouter = createBrowserRouter([
  
-const root =createRoot(document.getElementById('root'));
-root.render(<AppLayOut/>)
+  {
+    path: "/",
+    element: <Navigate to="/home"/>,
+  },
+  {
+path:"/home",
+element:<Home/>
+  },
+  {
+    path: "/signIn",
+    element: <SignIn />,
+  },
+  {
+    path: "/signUp",
+    element: <SignUp />,
+  },
+]);
+
+const root = createRoot(document.getElementById("root"));
+root.render(<RouterProvider router={appRouter} />);
