@@ -4,26 +4,24 @@ import Home from "./Components/Home";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import SignUp from "./Components/SignUp";
 import SignIn from "./Components/SignIn";
+import LoggedInPage from "./Components/LoggedInPage";
 
 
 const appRouter = createBrowserRouter([
  
   {
     path: "/",
-    element: <Navigate to="/home"/>,
+    element: <Home />
+
+  },{path:"/signIn",
+    element:<SignIn/>
   },
-  {
-path:"/home",
-element:<Home/>
+  {path:"/signUp",
+    element:<SignUp/>
   },
-  {
-    path: "/signIn",
-    element: <SignIn />,
-  },
-  {
-    path: "/signUp",
-    element: <SignUp />,
-  },
+  {path:"/loggedInPage",
+    element:<LoggedInPage/>
+  }
 ]);
 
 const root = createRoot(document.getElementById("root"));

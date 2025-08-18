@@ -1,7 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import signup from '../../resourses/signup.png';
 const SignUp = () => {
+
+const [EmailId,setEmailId]= useState("");
+const [FirstName,setFirstName]= useState("");
+const [LastName,setLastName]= useState("");
+const [Password,setPassword]= useState("");
+const gender="male"
+
+const submitSignUpForm= async()=>{
+  try {
+    const res = await fetch("http://localhost:3000/signup",{
+      method:"POST",
+      headers: {
+          "Content-Type": "application/json", // tell server it's JSON
+        },
+        body: JSON.stringify({
+          firstName:FirstName,
+          lastName:LastName,
+          emailId: EmailId,  
+          password: Password,
+          gender:gender
+        })
+      });
+
+      const data = await res.json();
+      console.log("Response:", data);
+
+      if (res.ok) {
+        alert("Account Created Please Login!!");
+      } else {
+        alert("Login failed: " + (data.message || "Invalid credentials"));
+      
+    }
+    
+  } catch (err) {
+     console.error("Login error:", err);
+      alert("Something went wrong. Please try again.");
+    
+  }
+}
+
   return (
+
+
     <div className="flex justify-between ">
           
    
@@ -21,24 +63,28 @@ const SignUp = () => {
                type="text"
                placeholder="First Name"
                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+               onChange={(e)=>setFirstName(e.target.value)}
              />
              <input
                type="text"
                placeholder="Last Name"
                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+               onChange={(e)=>setLastName(e.target.value)}
              />
 
              <input
                type="email"
                placeholder="Email"
                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+               onChange={(e)=>setEmailId(e.target.value)}
              />
              <input
                type="password"
                placeholder="Password"
                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+               onChange={(e)=>setPassword(e.target.value)}
              />
-             <button className="w-full py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+             <button type='button' className="w-full py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600" onClick={submitSignUpForm}>
                Sign In
              </button>
            </form>

@@ -1,9 +1,50 @@
 import React from 'react'
 import SignUp from './SignUp'
 import signin from '../../resourses/signin.png';
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import LoggedInPage from './LoggedInPage';
+
+
+
+
+
 
  const SignIn = () => {
   
+  const navigate = useNavigate();
+  const [EmailId,setEmailId]= useState("");
+ 
+  const [Password,setPassword]= useState("");
+
+ const handleLogin = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // tell server it's JSON
+        },
+        body: JSON.stringify({
+           emailId: EmailId,  
+           password: Password,
+        }),credentials: "include",
+      });
+
+      const data = await res.json();
+      console.log("Response:", data);
+
+      if (res.ok) {
+       // alert("Login successful!");
+       navigate("/loggedInPage");
+      
+      } else {
+        alert("Login failed: " + (data.message || "Invalid credentials"));
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <div className="flex justify-between ">
@@ -43,13 +84,15 @@ import signin from '../../resourses/signin.png';
             type="email"
             placeholder="Email"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={(e)=>setEmailId(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={(e)=>setPassword(e.target.value)}
           />
-          <button className="w-full py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
+          <button type='button' className="w-full py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600" onClick={handleLogin}>
             Sign In
           </button>
         </form>
