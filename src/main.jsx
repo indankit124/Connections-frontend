@@ -5,6 +5,10 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import SignUp from "./Components/SignUp";
 import SignIn from "./Components/SignIn";
 import LoggedInPage from "./Components/LoggedInPage";
+import { appStore, persistor } from "./utils/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import UserProfile from "./Components/UserProfile";
 
 
 const appRouter = createBrowserRouter([
@@ -20,9 +24,18 @@ const appRouter = createBrowserRouter([
     element:<SignUp/>
   },
   {path:"/loggedInPage",
-    element:<LoggedInPage/>
+    element:<LoggedInPage/>,
+    children:[{
+    path: "userProfile",
+    element: <UserProfile/>
+
+  }]
   }
 ]);
 
 const root = createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter} />);
+root.render(<Provider store={appStore}>
+   <PersistGate loading={null} persistor={persistor}>  <RouterProvider router={appRouter} /></PersistGate>
+
+  </Provider>
+);

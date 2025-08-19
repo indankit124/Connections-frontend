@@ -4,8 +4,8 @@ import signin from '../../resourses/signin.png';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import LoggedInPage from './LoggedInPage';
-
-
+ import { addInfo } from '../utils/loginInfoSlice';
+import { useDispatch } from 'react-redux';  
 
 
 
@@ -13,10 +13,11 @@ import LoggedInPage from './LoggedInPage';
  const SignIn = () => {
   
   const navigate = useNavigate();
-  const [EmailId,setEmailId]= useState("");
+  const [EmailId,setEmailId]= useState("ankitmahala@gmail.com");
+  const dispatch= useDispatch();
  
-  const [Password,setPassword]= useState("");
-
+  const [Password,setPassword]= useState("Ankit@123");
+  
  const handleLogin = async () => {
     try {
       const res = await fetch("http://localhost:3000/login", {
@@ -31,10 +32,11 @@ import LoggedInPage from './LoggedInPage';
       });
 
       const data = await res.json();
-      console.log("Response:", data);
+      // console.log("Response:", data);
 
       if (res.ok) {
        // alert("Login successful!");
+       dispatch(addInfo(data))
        navigate("/loggedInPage");
       
       } else {
