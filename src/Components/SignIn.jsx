@@ -13,10 +13,10 @@ import { useDispatch } from 'react-redux';
  const SignIn = () => {
   
   const navigate = useNavigate();
-  const [EmailId,setEmailId]= useState("ankitmahala@gmail.com");
+  const [EmailId,setEmailId]= useState("");
   const dispatch= useDispatch();
  
-  const [Password,setPassword]= useState("Ankit@123");
+  const [Password,setPassword]= useState("");
   
  const handleLogin = async () => {
     try {
@@ -39,7 +39,7 @@ import { useDispatch } from 'react-redux';
        dispatch(addInfo(data))
        navigate("/loggedInPage");
       
-      } else {
+      } else {  
         alert("Login failed: " + (data.message || "Invalid credentials"));
       }
     } catch (err) {

@@ -9,7 +9,9 @@ import { appStore, persistor } from "./utils/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import UserProfile from "./Components/UserProfile";
-
+import FeedAndConnectionPage from "./Components/feedAndConnectionPage";
+import FollowRequest from "./Components/FollowRequest";
+import Feed from "./Components/Feed";
 
 const appRouter = createBrowserRouter([
  
@@ -22,14 +24,29 @@ const appRouter = createBrowserRouter([
   },
   {path:"/signUp",
     element:<SignUp/>
-  },
+  }
+  ,
   {path:"/loggedInPage",
     element:<LoggedInPage/>,
     children:[{
+    path: "",
+    element: <FeedAndConnectionPage/>,
+    children:[{
+    path: "",
+    element: <Feed/>,},
+      
+      
+      {path:"followRequest",
+    element:<FollowRequest/>
+  }
+    ]
+
+  },{
     path: "userProfile",
     element: <UserProfile/>
 
-  }]
+  },
+   ]
   }
 ]);
 
